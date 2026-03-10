@@ -1,18 +1,21 @@
 ## Assembly
+
+```asm
 section .data
-    nama db 'Halo, Saya Bagas Prabowo', 0xa
-    panjang equ $ - nama
+    msg db "Halo saya bagas Prabowo", 10
+    len equ $ - msg
 
 section .text
     global _start
 
 _start:
-    mov rax, 1             ; sys_write
-    mov rdi, 1             ; stdout
-    mov rsi, nama          ; alamat string
-    mov rdx, panjang       ; panjang string
-    syscall
+    mov eax, 4
+    mov ebx, 1
+    mov ecx, msg
+    mov edx, len
+    int 0x80
 
-    mov rax, 60            ; sys_exit
-    xor rdi, rdi
-    syscall
+    mov eax, 1
+    mov ebx, 0
+    int 0x80
+```
